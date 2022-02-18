@@ -8,6 +8,7 @@ const TOKEN = fs.readFileSync('./Token').toString();
 class WorkItemsAPI extends RESTDataSource {
     constructor() {
         super();
+        // Note: Changing base URL to use HTTP results in a 405 Bad Operation Error. Not sure why?
         this.baseURL = "https://dev.azure.com/wdfox3/3143c869-ae4a-48d2-93e6-5503b338c6bc/_apis/wit/"
     }
 
