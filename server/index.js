@@ -1,6 +1,9 @@
 
 const { ApolloServer, gql } = require('apollo-server');
-const { RESTDataSource } = require('apollo-datasource-rest')
+const { RESTDataSource } = require('apollo-datasource-rest');
+
+const fs = require('fs');
+const TOKEN = fs.readFileSync('./Token').toString();
 
 class WorkItemsAPI extends RESTDataSource {
     constructor() {
@@ -18,9 +21,11 @@ class WorkItemsAPI extends RESTDataSource {
     }
 
     willSendRequest(request) {
-        const token = ":blah";
+        console.log(request);
+        const token = ":" + TOKEN;
+        console.log(token);
         // console.log(Buffer.from(token, 'binary').toString('base64'));
-        request.headers.append('Authorization', 'Basic ' + Buffer.from(token, 'binary').toString('base64'));
+        request.headers.set('Authorization', 'Basic ' + Buffer.from(token, 'binary').toString('base64'));
         // console.log(Buffer.from(token, 'base64').toString('utf-8'));
         // request.headers.set('Authorization', 'Basic ' + token);
         request.headers.set('Accept', 'application/json;api-version=7.0');
